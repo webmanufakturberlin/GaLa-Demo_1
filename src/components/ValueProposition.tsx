@@ -153,7 +153,7 @@ function GlowCard({
       <motion.div
         initial={entrance.initial}
         whileInView={entrance.whileInView}
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ margin: '-80px' }}
         transition={{ duration: 0.8, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
         onMouseMove={(e) => {
           const rect = e.currentTarget.getBoundingClientRect();
@@ -168,7 +168,7 @@ function GlowCard({
           setIsHovered(false);
           iconControls.start({ scale: 1, rotate: 0, x: 0, y: 0, transition: { duration: 0.3 } });
         }}
-        className={`relative p-10 rounded-3xl ${box.bg} ${box.hoverBg} text-forest border-2 transition-all duration-500 w-full h-full flex flex-col justify-between overflow-hidden cursor-default`}
+        className={`relative p-6 md:p-10 rounded-3xl ${box.bg} ${box.hoverBg} text-forest border-2 transition-all duration-500 w-full h-full flex flex-col justify-between overflow-hidden cursor-default`}
         style={{
           boxShadow: isHovered
             ? '0 12px 40px rgba(146, 108, 68, 0.15), 0 0 0 1px rgba(146, 108, 68, 0.2)'
@@ -194,13 +194,13 @@ function GlowCard({
           className="relative z-10"
         >
           <Icon
-            className={`w-10 h-10 mb-8 ${isHovered ? 'text-bronze' : box.iconColor} transition-colors duration-400`}
+            className={`w-8 h-8 md:w-10 md:h-10 mb-4 md:mb-8 ${isHovered ? 'text-bronze' : box.iconColor} transition-colors duration-400`}
             strokeWidth={1.5}
           />
         </motion.div>
 
         <div className="relative z-10">
-          <h3 className="text-3xl font-serif mb-4 leading-snug text-forest">
+          <h3 className="text-xl md:text-3xl font-serif mb-3 md:mb-4 leading-snug text-forest">
             {box.number > 0 && <CountUp end={box.number} suffix={box.suffix} />}
             {box.number > 0 ? ' ' : ''}
             {box.title}

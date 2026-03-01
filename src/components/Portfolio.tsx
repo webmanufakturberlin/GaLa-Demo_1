@@ -61,7 +61,7 @@ export default function Portfolio() {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ margin: '-100px' }}
         transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="hidden md:block w-full h-[70vh] min-h-[500px] max-h-[700px]"
       >
@@ -84,7 +84,7 @@ export default function Portfolio() {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
+              viewport={{ margin: '-50px' }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="flex-shrink-0 snap-center w-[80vw] max-w-[320px] rounded-2xl overflow-hidden bg-cream shadow-lg"
             >

@@ -13,7 +13,7 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ margin: '-50px' }}
             transition={{ duration: 0.6 }}
             className="md:col-span-2"
           >
@@ -50,7 +50,7 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h4 className="font-sans text-xs uppercase tracking-widest text-bronze mb-6">Navigation</h4>
@@ -81,7 +81,7 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <h4 className="font-sans text-xs uppercase tracking-widest text-bronze mb-6">Kontakt</h4>
@@ -108,7 +108,7 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="pt-8 border-t border-cream/10 flex flex-col md:flex-row justify-between items-center gap-4 font-sans text-xs text-cream/50">
           <p>&copy; 2026 Berlin Premium Landscaping. Alle Rechte vorbehalten.</p>

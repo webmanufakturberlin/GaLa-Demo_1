@@ -42,7 +42,7 @@ function StepCard({ step, index, isActive, onClick }: {
   onClick: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const isInView = useInView(ref, { margin: '-80px' });
   const Icon = step.icon;
 
   return (
@@ -211,7 +211,7 @@ export default function Process() {
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
+                  viewport={{ margin: '-50px' }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   onClick={() => setActiveStep(i)}
                   className="relative cursor-pointer"

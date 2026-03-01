@@ -32,19 +32,19 @@ export default function Hero() {
         style={{ opacity: textOpacity, y: textY }}
         className="relative z-10 text-center px-4 section-container mt-20"
       >
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-tight mb-6 drop-shadow-lg">
+        <h1 className="text-6xl md:text-7xl lg:text-[7rem] font-serif text-cream leading-tight mb-6 drop-shadow-lg">
           <motion.span
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="block"
           >
             Gärten, die Geschichten erzählen.
           </motion.span>
           <motion.span
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1.4, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="block italic text-sand font-light"
           >
             Ihr privates Refugium in Berlin.

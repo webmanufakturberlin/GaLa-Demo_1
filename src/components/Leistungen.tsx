@@ -90,7 +90,7 @@ function ServiceCard({
     <motion.div
       initial={{ opacity: 0, rotateY: -90, scale: 0.6 }}
       whileInView={{ opacity: 1, rotateY: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ margin: '-80px' }}
       transition={{ duration: 0.9, delay: index * 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
       whileHover={{ y: -8, scale: 1.02 }}
       onMouseMove={(e) => {

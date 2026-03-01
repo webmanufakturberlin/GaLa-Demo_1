@@ -62,7 +62,7 @@ export default function Leistungen() {
     <>
       <section id="leistungen" className="py-24 md:py-32 section-container relative z-10">
         <SectionHeading title="Unsere Leistungen" subtitle="Ganzheitliche Gartenkultur" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: '1200px' }}>
           {services.map((service, i) => (
             <ServiceCard key={service.title} service={service} index={i} onClick={() => setActiveService(service)} />
           ))}
@@ -88,10 +88,10 @@ function ServiceCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, rotateY: -90, scale: 0.6 }}
+      whileInView={{ opacity: 1, rotateY: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
+      transition={{ duration: 0.9, delay: index * 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
       whileHover={{ y: -8, scale: 1.02 }}
       onMouseMove={(e) => {
         const rect = e.currentTarget.getBoundingClientRect();

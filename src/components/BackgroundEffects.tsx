@@ -2,28 +2,35 @@ import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 const leafPaths = [
-  "M12.08 2.16l1.6 3.52 3.84-.64-1.28 3.52 4.16 2.24-3.52 2.24.64 3.84-3.52-1.6-2.24 4.16-2.24-4.16-3.52 1.6.64-3.84-3.52-2.24 4.16-2.24-1.28-3.52 3.84.64 1.6-3.52z",
-  "M12 2c-1.1 0-2 .9-2 2 0 .37.1.7.28 1-.86.3-1.5 1.1-1.5 2 0 .55.22 1.05.58 1.41C8.18 8.77 7.5 9.8 7.5 11c0 1.1.9 2 2 2 .37 0 .7-.1 1-.28.3.86 1.1 1.5 2 1.5s1.7-.64 2-1.5c.3.18.63.28 1 .28 1.1 0 2-.9 2-2 0-1.2-.68-2.23-1.86-2.59.36-.36.58-.86.58-1.41 0-.9-.64-1.7-1.5-2 .18-.3.28-.63.28-1 0-1.1-.9-2-2-2z",
-  "M12 2C12 2 6 7 6 13C6 18 12 22 12 22C12 22 18 18 18 13C18 7 12 2 12 2Z"
+  // Simple teardrop leaf
+  "M12 2C12 2 6 7 6 13C6 18 12 22 12 22C12 22 18 18 18 13C18 7 12 2 12 2Z",
+  // Maple-style leaf
+  "M12 1L9 6L3 5L6 10L2 14L8 13L10 19L12 14L14 19L16 13L22 14L18 10L21 5L15 6L12 1Z",
+  // Elongated willow leaf
+  "M12 2C10 5 8 9 8 13C8 17 10 20 12 22C14 20 16 17 16 13C16 9 14 5 12 2Z",
+  // Oak-style rounded leaf
+  "M12 2C12 2 8 4 7 7C6 10 8 11 7 14C6 17 8 19 12 22C16 19 18 17 17 14C16 11 18 10 17 7C16 4 12 2 12 2Z",
+  // Small round leaf
+  "M12 3C9 3 5 7 5 12C5 17 9 21 12 22C15 21 19 17 19 12C19 7 15 3 12 3Z",
 ];
 
-const Leaf = ({ delay, x, duration, scale, pathIndex }: { delay: number, x: number, duration: number, scale: number, pathIndex: number }) => {
+const Leaf = ({ delay, x, duration, scale, pathIndex, opacity }: { delay: number; x: number; duration: number; scale: number; pathIndex: number; opacity: number }) => {
   return (
     <motion.div
       initial={{ y: '-10vh', x: `${x}vw`, rotate: 0, opacity: 0 }}
-      animate={{ 
-        y: '110vh', 
-        x: `${x + (Math.random() * 10 - 5)}vw`, 
-        rotate: 360, 
-        opacity: [0, 0.6, 0.6, 0] 
+      animate={{
+        y: '110vh',
+        x: `${x + (Math.random() * 10 - 5)}vw`,
+        rotate: 360,
+        opacity: [0, opacity, opacity, 0],
       }}
-      transition={{ 
-        duration: duration, 
-        repeat: Infinity, 
+      transition={{
+        duration: duration,
+        repeat: Infinity,
         delay: delay,
-        ease: "linear"
+        ease: 'linear',
       }}
-      className="fixed z-0 pointer-events-none text-forest/20"
+      className="fixed z-0 pointer-events-none text-green-600/30"
       style={{ scale }}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -34,16 +41,17 @@ const Leaf = ({ delay, x, duration, scale, pathIndex }: { delay: number, x: numb
 };
 
 export function BackgroundEffects() {
-  const [leaves, setLeaves] = useState<Array<{id: number, delay: number, x: number, duration: number, scale: number, pathIndex: number}>>([]);
+  const [leaves, setLeaves] = useState<Array<{ id: number; delay: number; x: number; duration: number; scale: number; pathIndex: number; opacity: number }>>([]);
 
   useEffect(() => {
-    const newLeaves = Array.from({ length: 15 }).map((_, i) => ({
+    const newLeaves = Array.from({ length: 28 }).map((_, i) => ({
       id: i,
       delay: Math.random() * 20,
       x: Math.random() * 100,
       duration: 15 + Math.random() * 15,
-      scale: 0.8 + Math.random() * 2,
-      pathIndex: Math.floor(Math.random() * leafPaths.length)
+      scale: 0.6 + Math.random() * 2,
+      pathIndex: Math.floor(Math.random() * leafPaths.length),
+      opacity: 0.3 + Math.random() * 0.4,
     }));
     setLeaves(newLeaves);
   }, []);
@@ -53,7 +61,7 @@ export function BackgroundEffects() {
       <div className="texture-overlay"></div>
       <div className="dappled-sunlight"></div>
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        {leaves.map(leaf => (
+        {leaves.map((leaf) => (
           <Leaf key={leaf.id} {...leaf} />
         ))}
       </div>

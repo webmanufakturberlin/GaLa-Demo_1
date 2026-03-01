@@ -10,11 +10,11 @@ export default function SectionHeading({ title, subtitle, light }: SectionHeadin
   return (
     <div className="text-center mb-16 md:mb-20">
       <motion.h2
-        initial={{ opacity: 0, y: 30, clipPath: 'inset(0 0 100% 0)' }}
-        whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`text-4xl md:text-5xl lg:text-6xl font-serif mb-4 ${light ? 'text-cream' : 'text-forest'}`}
+        className={`text-5xl md:text-6xl lg:text-7xl font-serif mb-4 ${light ? 'text-cream' : 'text-forest'}`}
       >
         {title}
       </motion.h2>

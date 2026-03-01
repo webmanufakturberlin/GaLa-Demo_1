@@ -32,16 +32,24 @@ export default function Hero() {
         style={{ opacity: textOpacity, y: textY }}
         className="relative z-10 text-center px-4 section-container mt-20"
       >
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-tight mb-6 drop-shadow-lg"
-        >
-          Gärten, die Geschichten erzählen.
-          <br />
-          <span className="italic text-sand font-light">Ihr privates Refugium in Berlin.</span>
-        </motion.h1>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-cream leading-tight mb-6 drop-shadow-lg">
+          <motion.span
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="block"
+          >
+            Gärten, die Geschichten erzählen.
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="block italic text-sand font-light"
+          >
+            Ihr privates Refugium in Berlin.
+          </motion.span>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}

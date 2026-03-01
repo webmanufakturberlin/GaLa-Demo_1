@@ -8,6 +8,7 @@ const navItems = [
   { label: 'Leistungen', target: 'leistungen' },
   { label: 'Portfolio', target: 'portfolio' },
   { label: 'Methodik', target: 'process' },
+  { label: 'Kontakt', target: 'contact' },
 ];
 
 const sectionIds = navItems.map((i) => i.target);

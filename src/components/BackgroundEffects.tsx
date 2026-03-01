@@ -44,10 +44,12 @@ export function BackgroundEffects() {
   const [leaves, setLeaves] = useState<Array<{ id: number; delay: number; x: number; duration: number; scale: number; pathIndex: number; opacity: number }>>([]);
 
   useEffect(() => {
-    const newLeaves = Array.from({ length: 28 }).map((_, i) => ({
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const count = isMobile ? 10 : 28;
+    const newLeaves = Array.from({ length: count }).map((_, i) => ({
       id: i,
       delay: Math.random() * 20,
-      x: Math.random() * 100,
+      x: Math.random() * 90 + 5,
       duration: 15 + Math.random() * 15,
       scale: 0.6 + Math.random() * 2,
       pathIndex: Math.floor(Math.random() * leafPaths.length),

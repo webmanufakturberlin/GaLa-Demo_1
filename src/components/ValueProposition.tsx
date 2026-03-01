@@ -1,8 +1,20 @@
 import { motion, useAnimation } from 'motion/react';
 import { CheckCircle, MapPin, Leaf, ShieldCheck, UserCheck, Star } from 'lucide-react';
-import { useState, type Key, type ComponentType } from 'react';
+import { useState, useEffect, type Key, type ComponentType } from 'react';
 import SectionHeading from './ui/SectionHeading';
 import CountUp from './ui/CountUp';
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    setIsMobile(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 // Each icon gets a unique hover animation
 const iconAnimations: Record<string, { hover: object; tap?: object }> = {
@@ -58,8 +70,8 @@ const boxes = [
     icon: MapPin,
     iconName: 'MapPin',
     colSpan: 'md:col-span-1',
-    bg: 'bg-sand/30 border-bronze/15',
-    hoverBg: 'hover:bg-sand/50',
+    bg: 'bg-[#E8DFD0] border-bronze/15',
+    hoverBg: 'hover:bg-[#EDE6DA]',
     iconColor: 'text-bronze/70',
     accentColor: 'from-bronze/5 to-transparent',
   },
@@ -84,8 +96,8 @@ const boxes = [
     icon: ShieldCheck,
     iconName: 'ShieldCheck',
     colSpan: 'md:col-span-1',
-    bg: 'bg-sand/20 border-forest/10',
-    hoverBg: 'hover:bg-sand/40',
+    bg: 'bg-[#EDE6DA] border-forest/10',
+    hoverBg: 'hover:bg-[#F3EDE4]',
     iconColor: 'text-forest/60',
     accentColor: 'from-forest/5 to-transparent',
   },
@@ -110,8 +122,8 @@ const boxes = [
     icon: UserCheck,
     iconName: 'UserCheck',
     colSpan: 'md:col-span-3',
-    bg: 'bg-sand/20 border-forest/10',
-    hoverBg: 'hover:bg-sand/40',
+    bg: 'bg-[#E8DFD0] border-forest/10',
+    hoverBg: 'hover:bg-[#EDE6DA]',
     iconColor: 'text-forest/60',
     accentColor: 'from-forest/5 to-transparent',
   },
@@ -120,15 +132,19 @@ const boxes = [
 function GlowCard({
   box,
   index,
+  isMobile,
 }: {
   key?: Key;
   box: (typeof boxes)[number];
   index: number;
+  isMobile: boolean;
 }) {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const iconControls = useAnimation();
-  const entrance = entranceVariants[index] || entranceVariants[0];
+  const desktopEntrance = entranceVariants[index] || entranceVariants[0];
+  const mobileEntrance = { initial: { opacity: 0, y: 40 }, whileInView: { opacity: 1, y: 0 } };
+  const entrance = isMobile ? mobileEntrance : desktopEntrance;
 
   const Icon = box.icon;
 
@@ -197,13 +213,15 @@ function GlowCard({
 }
 
 export default function ValueProposition() {
+  const isMobile = useIsMobile();
+
   return (
-    <section id="about" className="py-24 w-full px-6 md:px-12 lg:px-16 relative z-10">
+    <section id="about" className="py-24 w-full px-6 md:px-12 lg:px-16 relative z-10 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <SectionHeading title="Was uns ausmacht" subtitle="Exzellenz in jedem Detail" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {boxes.map((box, i) => (
-            <GlowCard key={i} box={box} index={i} />
+            <GlowCard key={i} box={box} index={i} isMobile={isMobile} />
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { motion } from "motion/react"
 
 interface ShinyButtonProps {
   children: React.ReactNode
@@ -92,6 +93,15 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
 
         .shiny-cta:active {
           translate: 0 1px;
+        }
+
+        .shiny-cta {
+          animation: cta-pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes cta-pulse-glow {
+          0%, 100% { box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 0 0 rgba(146, 108, 68, 0); }
+          50% { box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 20px 2px rgba(146, 108, 68, 0.25); }
         }
 
         /* Dots pattern */
@@ -195,9 +205,15 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
         }
       `}</style>
 
-      <button className={`shiny-cta ${className}`} onClick={onClick}>
+      <motion.button
+        className={`shiny-cta ${className}`}
+        onClick={onClick}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+      >
         <span>{children}</span>
-      </button>
+      </motion.button>
     </>
   )
 }

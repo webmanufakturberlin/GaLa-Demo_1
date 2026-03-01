@@ -20,8 +20,8 @@ export default function Hero() {
     <section ref={ref} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
       <motion.div className="absolute inset-0 z-0 organic-mask" style={{ y: bgY }}>
         <img
-          src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1920&auto=format&fit=crop"
-          alt="Luxuriöser Garten in Berlin"
+          src="/Hero.png"
+          alt="Rosenbogen im Garten"
           className="w-full h-full object-cover opacity-80"
           referrerPolicy="no-referrer"
         />

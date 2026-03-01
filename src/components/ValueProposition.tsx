@@ -1,9 +1,8 @@
 import { motion } from 'motion/react';
-import { CheckCircle, MapPin, Leaf, Cuboid } from 'lucide-react';
+import { CheckCircle, MapPin, Leaf, ShieldCheck, UserCheck, Star } from 'lucide-react';
 import { useState, type Key } from 'react';
 import SectionHeading from './ui/SectionHeading';
 import CountUp from './ui/CountUp';
-import { HoverBorderGradient } from './ui/hover-border-gradient';
 
 const boxes = [
   {
@@ -31,16 +30,34 @@ const boxes = [
     desc: 'Förderung der Biodiversität durch nachhaltige Materialien und heimische Bepflanzung.',
     icon: Leaf,
     colSpan: 'md:col-span-1',
-    bg: 'bg-cream text-forest border border-forest/10',
+    bg: 'bg-sand/60 text-forest',
   },
   {
-    title: 'Digitale 3D-Manufaktur',
-    number: 0,
-    suffix: '',
-    desc: 'Erleben Sie den Luxus, Ihren zukünftigen Garten in fotorealistischem 3D zu durchschreiten, bevor der erste Spatenstich erfolgt.',
-    icon: Cuboid,
-    colSpan: 'md:col-span-2',
+    title: 'Garantierte Pflege',
+    number: 5,
+    suffix: ' Jahre',
+    desc: 'Sorgenfreie Anwachsgarantie und intensive Betreuung in den ersten entscheidenden Jahren.',
+    icon: ShieldCheck,
+    colSpan: 'md:col-span-1',
+    bg: 'bg-forest text-cream',
+  },
+  {
+    title: 'Premium Handwerkskunst',
+    number: 100,
+    suffix: '%',
+    desc: 'Ausschließliche Verwendung von erlesenen Natursteinen und kompromisslose Verarbeitungsqualität bei jedem Schnitt.',
+    icon: Star,
+    colSpan: 'md:col-span-1',
     bg: 'bg-bronze text-cream',
+  },
+  {
+    title: 'Persönliche Betreuung',
+    number: 1,
+    suffix: ' Ansprechpartner',
+    desc: 'Ein fester Meister begleitet Ihr Projekt von der ersten Ideenskizze bis zur schlüsselfertigen Übergabe - für maximale Transparenz und Vertrauen.',
+    icon: UserCheck,
+    colSpan: 'md:col-span-3',
+    bg: 'bg-forest text-cream',
   },
 ];
 
@@ -56,11 +73,7 @@ function GlowCard({
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <HoverBorderGradient
-      as="div"
-      containerClassName={`${box.colSpan}`}
-      className="w-full h-full"
-    >
+    <div className={box.colSpan}>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +86,7 @@ function GlowCard({
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`relative p-10 rounded-3xl ${box.bg} shadow-sm hover:shadow-xl transition-shadow duration-500 flex flex-col justify-between overflow-hidden cursor-default`}
+        className={`relative p-10 rounded-3xl ${box.bg} border border-transparent hover:border-bronze hover:shadow-[0_0_30px_rgba(200,160,100,0.6)] transition-all duration-500 w-full h-full flex flex-col justify-between overflow-hidden cursor-default`}
       >
         {isHovered && (
           <div
@@ -94,13 +107,13 @@ function GlowCard({
           <p className="font-sans text-sm leading-relaxed opacity-90">{box.desc}</p>
         </div>
       </motion.div>
-    </HoverBorderGradient>
+    </div>
   );
 }
 
 export default function ValueProposition() {
   return (
-    <section id="about" className="py-24 section-container relative z-10">
+    <section id="about" className="py-24 w-full px-4 md:px-8 relative z-10">
       <SectionHeading title="Was uns ausmacht" subtitle="Exzellenz in jedem Detail" />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {boxes.map((box, i) => (

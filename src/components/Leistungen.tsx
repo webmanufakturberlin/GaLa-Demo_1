@@ -18,8 +18,8 @@ const services = [
       'Beleuchtungskonzepte für stimmungsvolle Abende',
       'Integration von Wasserelementen und Kunstobjekten',
     ],
-    image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop',
-    cardImage: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=600&auto=format&fit=crop',
+    image: '/Leistungen_2.png',
+    cardImage: '/Leistungen_2.png',
   },
   {
     title: 'Landschaftsbau',
@@ -34,8 +34,8 @@ const services = [
       'Rasenneuanlage und Rollrasen',
       'Erdarbeiten und Geländemodellierung',
     ],
-    image: 'https://images.unsplash.com/photo-1558904541-efa843a96f09?q=80&w=800&auto=format&fit=crop',
-    cardImage: 'https://images.unsplash.com/photo-1558904541-efa843a96f09?q=80&w=600&auto=format&fit=crop',
+    image: '/Leistungen_3.png',
+    cardImage: '/Leistungen_3.png',
   },
   {
     title: 'Pflege & Erhalt',
@@ -50,8 +50,8 @@ const services = [
       'Winterdienst und Frostschutzmaßnahmen',
       'Schädlingsbekämpfung und Pflanzenschutz',
     ],
-    image: 'https://images.unsplash.com/photo-1416879598555-220b8fa2f408?q=80&w=800&auto=format&fit=crop',
-    cardImage: 'https://images.unsplash.com/photo-1416879598555-220b8fa2f408?q=80&w=600&auto=format&fit=crop',
+    image: '/Leistungen_4.png',
+    cardImage: '/Leistungen_4.png',
   },
 ];
 

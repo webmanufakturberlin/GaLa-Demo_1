@@ -2,16 +2,16 @@ import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 const leafPaths = [
-  // Simple teardrop leaf
-  "M12 2C12 2 6 7 6 13C6 18 12 22 12 22C12 22 18 18 18 13C18 7 12 2 12 2Z",
-  // Maple-style leaf
-  "M12 1L9 6L3 5L6 10L2 14L8 13L10 19L12 14L14 19L16 13L22 14L18 10L21 5L15 6L12 1Z",
-  // Elongated willow leaf
-  "M12 2C10 5 8 9 8 13C8 17 10 20 12 22C14 20 16 17 16 13C16 9 14 5 12 2Z",
-  // Oak-style rounded leaf
-  "M12 2C12 2 8 4 7 7C6 10 8 11 7 14C6 17 8 19 12 22C16 19 18 17 17 14C16 11 18 10 17 7C16 4 12 2 12 2Z",
-  // Small round leaf
-  "M12 3C9 3 5 7 5 12C5 17 9 21 12 22C15 21 19 17 19 12C19 7 15 3 12 3Z",
+  // Elegant Willow Leaf
+  "M12 1C10 4 8 9 9 14C10 18 11 20 12 23C13 20 14 18 15 14C16 9 14 4 12 1Z",
+  // Rounded Beech Leaf
+  "M12 1.5C9.5 3.5 5.5 8 7 14C8 18 10.5 21 12 23C13.5 21 16 18 17 14C18.5 8 14.5 3.5 12 1.5Z",
+  // Smooth Oak-like Leaf
+  "M12 2C9.5 3 8 5.5 6.5 8C5.5 9.5 6 12 7 14C8 16 9.5 18 11.5 22.5C11.8 23 12.2 23 12.5 22.5C14.5 18 16 16 17 14C18 12 18.5 9.5 17.5 8C16 5.5 14.5 3 12 2Z",
+  // Heart-shaped Linden Leaf
+  "M12 3C8 -1 2 4 4 10C5.5 14.5 9.5 19 12 23C14.5 19 18.5 14.5 20 10C22 4 16 -1 12 3Z",
+  // Gentle Oval Leaf
+  "M12 1.5C10 3 7 7 7 12.5C7 17 10 21 12 23C14 21 17 17 17 12.5C17 7 14 3 12 1.5Z"
 ];
 
 const Leaf = ({ delay, x, duration, scale, pathIndex, opacity }: { delay: number; x: number; duration: number; scale: number; pathIndex: number; opacity: number }) => {

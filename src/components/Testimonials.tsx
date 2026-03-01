@@ -41,6 +41,22 @@ const testimonials = [
     text: 'Professionell, pünktlich und mit einem exzellenten Auge für Design. Wir könnten nicht zufriedener sein!',
     rating: 4,
   },
+  {
+    author: {
+      name: 'Michael Wagner',
+      location: 'Potsdam Babelsberg',
+    },
+    text: 'Ein traumhaftes Ergebnis! Die Natursteinmauer und das Wasserspiel sind zum absoluten Highlight unseres Grundstücks geworden.',
+    rating: 5,
+  },
+  {
+    author: {
+      name: 'Julia & Stefan Klein',
+      location: 'Berlin Köpenick',
+    },
+    text: 'Kreative Ansätze, die genau unseren Geschmack getroffen haben. Die Pflanzenvielfalt ist beeindruckend und das Team war sehr zuvorkommend.',
+    rating: 5,
+  },
 ];
 
 export default function Testimonials() {

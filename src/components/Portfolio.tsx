@@ -3,28 +3,34 @@ import SectionHeading from './ui/SectionHeading';
 
 const projects = [
   {
-    title: 'Villa am See',
+    title: 'Naturnaher Wasserlauf',
     district: 'Wannsee',
-    img: 'https://images.unsplash.com/photo-1558904541-efa843a96f09?q=80&w=800&auto=format&fit=crop',
+    img: '/Portfolio_1.png',
     span: 'md:col-span-2 md:row-span-2',
   },
   {
-    title: 'Modernes Atrium',
-    district: 'Mitte',
-    img: 'https://images.unsplash.com/photo-1604014237800-1c9102c219da?q=80&w=800&auto=format&fit=crop',
+    title: 'Villen-Garten',
+    district: 'Dahlem',
+    img: '/Portfolio_2.png',
     span: 'md:col-span-1 md:row-span-1',
   },
   {
-    title: 'Historischer Park',
-    district: 'Dahlem',
-    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop',
+    title: 'Harmonische Anlage',
+    district: 'Zehlendorf',
+    img: '/Portfolio_3.png',
+    span: 'md:col-span-1 md:row-span-1',
+  },
+  {
+    title: 'Erlesene Kräuterspirale',
+    district: 'Grunewald',
+    img: '/Portfolio_4.png',
     span: 'md:col-span-1 md:row-span-2',
   },
   {
-    title: 'Waldgarten',
-    district: 'Grunewald',
-    img: 'https://images.unsplash.com/photo-1558905089-8668962ce015?q=80&w=800&auto=format&fit=crop',
-    span: 'md:col-span-2 md:row-span-1',
+    title: 'Mediterraner Terrassentraum',
+    district: 'Mitte',
+    img: '/Portfolio_5.png',
+    span: 'md:col-span-2 md:row-span-2',
   },
 ];
 

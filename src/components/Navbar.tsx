@@ -4,10 +4,10 @@ import { useScrollSpy } from '../hooks/useScrollSpy';
 import { Menu, X } from 'lucide-react';
 
 const navItems = [
-  { label: 'Methodik', target: 'process' },
+  { label: 'Über uns', target: 'about' },
   { label: 'Leistungen', target: 'leistungen' },
   { label: 'Portfolio', target: 'portfolio' },
-  { label: 'Über uns', target: 'about' },
+  { label: 'Methodik', target: 'process' },
 ];
 
 const sectionIds = navItems.map((i) => i.target);

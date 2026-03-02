@@ -171,12 +171,12 @@ function GlowCard({
           setIsHovered(false);
           iconControls.start({ scale: 1, rotate: 0, x: 0, y: 0, transition: { duration: 0.3 } });
         }}
-        className={`relative p-6 md:p-10 rounded-3xl ${box.bg} ${box.hoverBg} text-forest border-2 transition-all duration-500 w-full h-full flex flex-col justify-between overflow-hidden cursor-default`}
+        className={`relative p-6 md:p-10 rounded-3xl ${box.bg} ${box.hoverBg} text-forest border-2 transition-shadow duration-500 w-full h-full flex flex-col justify-between overflow-hidden cursor-default`}
+        whileHover={{ y: -8 }}
         style={{
           boxShadow: isHovered
             ? '0 12px 40px rgba(146, 108, 68, 0.15), 0 0 0 1px rgba(146, 108, 68, 0.2)'
             : '0 2px 12px rgba(27, 48, 34, 0.04)',
-          transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
         }}
       >
         {/* Cursor glow */}

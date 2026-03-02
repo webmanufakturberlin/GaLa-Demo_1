@@ -44,7 +44,7 @@ export default function Hero() {
 
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="relative z-10 text-center px-4 section-container mt-20"
+        className="relative z-10 text-center px-4 section-container mt-20 lg:mt-0"
       >
         <h1 className="text-6xl md:text-7xl lg:text-[7rem] font-serif leading-tight mb-6 drop-shadow-lg" style={{ color: '#F0E6D3' }}>
           <motion.span

@@ -29,7 +29,7 @@ export default function PageLoader() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-3xl md:text-4xl font-serif text-cream"
+            className="text-3xl md:text-4xl font-serif text-cream text-center px-6"
           >
             Berlin Premium Landscaping
           </motion.h1>

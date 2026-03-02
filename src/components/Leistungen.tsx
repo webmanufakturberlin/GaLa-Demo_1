@@ -1,13 +1,14 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { useState, type Key } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SectionHeading from './ui/SectionHeading';
-import ServiceModal from './ServiceModal';
 
 const services = [
   {
     title: 'Gartengestaltung',
     subtitle: 'Individuelle Konzepte',
+    slug: 'gartengestaltung',
     description:
       'Von der ersten Skizze bis zum fertigen Gartenparadies – wir entwerfen Außenräume, die Ihre Persönlichkeit widerspiegeln und sich harmonisch in die Berliner Architekturlandschaft einfügen. Jeder Garten ist ein Unikat, das Funktionalität und Ästhetik perfekt vereint.',
     features: [
@@ -18,12 +19,13 @@ const services = [
       'Beleuchtungskonzepte für stimmungsvolle Abende',
       'Integration von Wasserelementen und Kunstobjekten',
     ],
-    image: '/Leistungen_2.png',
-    cardImage: '/Leistungen_2.png',
+    image: '/Leistungen_2.webp',
+    cardImage: '/Leistungen_2.webp',
   },
   {
     title: 'Landschaftsbau',
     subtitle: 'Professionelle Umsetzung',
+    slug: 'landschaftsbau',
     description:
       'Unsere Meisterhandwerker verwandeln Visionen in Realität. Mit über 15 Jahren Erfahrung im Berliner Landschaftsbau setzen wir Projekte jeder Größenordnung mit höchster Präzision und nachhaltigsten Materialien um.',
     features: [
@@ -34,12 +36,13 @@ const services = [
       'Rasenneuanlage und Rollrasen',
       'Erdarbeiten und Geländemodellierung',
     ],
-    image: '/Leistungen_3.png',
-    cardImage: '/Leistungen_3.png',
+    image: '/Leistungen_3.webp',
+    cardImage: '/Leistungen_3.webp',
   },
   {
     title: 'Pflege & Erhalt',
     subtitle: 'Nachhaltige Betreuung',
+    slug: 'pflege',
     description:
       'Ein schöner Garten verdient dauerhafte Aufmerksamkeit. Unser Pflegeteam kümmert sich diskret und fachgerecht um Ihren Außenraum, damit er über Generationen hinweg in voller Pracht erstrahlt.',
     features: [
@@ -50,26 +53,23 @@ const services = [
       'Winterdienst und Frostschutzmaßnahmen',
       'Schädlingsbekämpfung und Pflanzenschutz',
     ],
-    image: '/Leistungen_4.png',
-    cardImage: '/Leistungen_4.png',
+    image: '/Leistungen_4.webp',
+    cardImage: '/Leistungen_4.webp',
   },
 ];
 
 export default function Leistungen() {
-  const [activeService, setActiveService] = useState<(typeof services)[number] | null>(null);
+  const navigate = useNavigate();
 
   return (
-    <>
-      <section id="leistungen" className="py-24 md:py-32 section-container relative z-10">
-        <SectionHeading title="Unsere Leistungen" subtitle="Ganzheitliche Gartenkultur" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: '1200px' }}>
-          {services.map((service, i) => (
-            <ServiceCard key={service.title} service={service} index={i} onClick={() => setActiveService(service)} />
-          ))}
-        </div>
-      </section>
-      <ServiceModal service={activeService} onClose={() => setActiveService(null)} />
-    </>
+    <section id="leistungen" className="py-24 md:py-32 section-container relative z-10">
+      <SectionHeading title="Unsere Leistungen" subtitle="Ganzheitliche Gartenkultur" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: '1200px' }}>
+        {services.map((service, i) => (
+          <ServiceCard key={service.title} service={service} index={i} onClick={() => navigate(`/leistungen/${service.slug}`)} />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -107,7 +107,7 @@ function ServiceCard({
         src={service.cardImage}
         alt={service.title}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-        referrerPolicy="no-referrer"
+        loading="lazy"
       />
 
       {/* Dark overlay */}

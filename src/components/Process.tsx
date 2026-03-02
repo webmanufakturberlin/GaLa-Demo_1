@@ -29,7 +29,7 @@ const steps = [
     title: 'Langfristige Pflege',
     desc: 'Diskrete und fachgerechte Betreuung, damit Ihr Refugium über Generationen hinweg gedeiht.',
     icon: Sprout,
-    img: 'https://images.unsplash.com/photo-1416879598555-220b8fa2f408?q=80&w=400&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=400&auto=format&fit=crop',
     detail: 'Mit unserer 5-Jahres-Anwachsgarantie und regelmäßiger Pflege bleibt Ihr Garten dauerhaft in Bestform.',
   },
 ];
@@ -62,7 +62,7 @@ function StepCard({ step, index, isActive }: {
             src={step.img}
             alt={step.title}
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
+            loading="lazy"
           />
         </div>
 
@@ -138,7 +138,7 @@ export default function Process() {
   });
 
   return (
-    <section ref={sectionRef} id="process" className="relative z-10 min-h-[180vh] lg:min-h-[250vh]">
+    <section ref={sectionRef} id="process" className="relative z-10 min-h-[280vh] lg:min-h-[250vh]">
       <div className="sticky top-0 py-32 px-6 md:px-12 lg:px-24 min-h-screen flex flex-col justify-center">
         <div className="max-w-[1400px] mx-auto w-full">
           <SectionHeading title="Der Weg zu deiner Gartenoase" subtitle="Von der Vision zur Wirklichkeit" />
@@ -237,7 +237,7 @@ export default function Process() {
                           src={step.img}
                           alt={step.title}
                           className="w-full h-full object-cover"
-                          referrerPolicy="no-referrer"
+                          loading="lazy"
                         />
                       </div>
 

@@ -34,10 +34,10 @@ export default function Hero() {
     <section ref={ref} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
       <motion.div className="absolute inset-0 z-0 organic-mask" style={{ y: bgY }}>
         <img
-          src="/Hero.png"
+          src="/Hero.webp"
           alt="Rosenbogen im Garten"
           className="w-full h-full object-cover opacity-80"
-          referrerPolicy="no-referrer"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-forest/40 mix-blend-multiply"></div>
       </motion.div>
@@ -67,7 +67,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={buttonControls}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center lg:mt-8"
         >
           <ShinyButton onClick={() => scrollTo('contact')}>
             Beratung anfragen

@@ -1,7 +1,15 @@
 import { motion } from 'motion/react';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, Shield, Award, Leaf, Star, CheckCircle } from 'lucide-react';
 import SectionHeading from './ui/SectionHeading';
 import MagneticButton from './ui/MagneticButton';
+
+const badges = [
+  { icon: Shield, label: 'Meisterbetrieb' },
+  { icon: CheckCircle, label: 'DSGVO konform' },
+  { icon: Leaf, label: 'Klimaneutral' },
+  { icon: Award, label: 'TÜV geprüft' },
+  { icon: Star, label: '5-Sterne Bewertung' },
+];
 
 export default function Contact() {
   return (
@@ -29,7 +37,7 @@ export default function Contact() {
                   <MapPin className="w-5 h-5 text-forest" />
                 </div>
                 <div>
-                  <h4 className="font-sans font-medium text-sm text-forest">Adresse</h4>
+                  <h3 className="font-sans font-medium text-sm text-forest">Adresse</h3>
                   <p className="text-forest/70 font-sans text-sm">Kurfürstendamm 123, 10711 Berlin</p>
                 </div>
               </div>
@@ -39,7 +47,7 @@ export default function Contact() {
                   <Phone className="w-5 h-5 text-forest" />
                 </div>
                 <div>
-                  <h4 className="font-sans font-medium text-sm text-forest">Telefon</h4>
+                  <h3 className="font-sans font-medium text-sm text-forest">Telefon</h3>
                   <a href="tel:+49301234567" className="text-forest/70 font-sans text-sm hover:text-bronze transition-colors">
                     +49 30 123 4567
                   </a>
@@ -51,7 +59,7 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-forest" />
                 </div>
                 <div>
-                  <h4 className="font-sans font-medium text-sm text-forest">E-Mail</h4>
+                  <h3 className="font-sans font-medium text-sm text-forest">E-Mail</h3>
                   <a href="mailto:contact@berlin-landscaping.de" className="text-forest/70 font-sans text-sm hover:text-bronze transition-colors">
                     contact@berlin-landscaping.de
                   </a>
@@ -125,6 +133,29 @@ export default function Contact() {
             </MagneticButton>
           </motion.form>
         </div>
+
+        {/* Certificates & Badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ margin: '-50px' }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mt-20 pt-12 border-t border-forest/10"
+        >
+          <p className="text-center font-sans text-xs uppercase tracking-widest text-forest/50 mb-8">
+            Zertifizierungen & Auszeichnungen
+          </p>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+            {badges.map((badge) => (
+              <div key={badge.label} className="flex flex-col items-center gap-2">
+                <div className="w-14 h-14 rounded-full bg-cream border border-forest/10 flex items-center justify-center">
+                  <badge.icon className="w-6 h-6 text-bronze/70" strokeWidth={1.5} />
+                </div>
+                <span className="font-sans text-xs text-forest/60">{badge.label}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

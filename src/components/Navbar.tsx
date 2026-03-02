@@ -80,6 +80,7 @@ export default function Navbar() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
         onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
         className={`fixed top-4 right-4 z-50 md:hidden w-12 h-12 rounded-full
           backdrop-blur-xl border flex items-center justify-center cursor-pointer
           transition-all duration-300

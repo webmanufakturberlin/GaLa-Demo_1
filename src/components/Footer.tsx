@@ -53,7 +53,7 @@ export default function Footer() {
             viewport={{ margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <h4 className="font-sans text-xs uppercase tracking-widest text-bronze mb-6">Navigation</h4>
+            <h3 className="font-sans text-xs uppercase tracking-widest text-bronze mb-6">Navigation</h3>
             <ul className="space-y-3 font-sans text-sm text-cream/80">
               <li>
                 <button onClick={() => scrollTo('portfolio')} className="hover:text-bronze transition-colors cursor-pointer">
@@ -84,7 +84,7 @@ export default function Footer() {
             viewport={{ margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h4 className="font-sans text-xs uppercase tracking-widest text-bronze mb-6">Kontakt</h4>
+            <h3 className="font-sans text-xs uppercase tracking-widest text-bronze mb-6">Kontakt</h3>
             <ul className="space-y-3 font-sans text-sm text-cream/80">
               <li>
                 Kurfürstendamm 123

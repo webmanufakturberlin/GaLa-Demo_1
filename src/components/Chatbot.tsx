@@ -56,6 +56,7 @@ export default function Chatbot() {
     <>
       <button
         onClick={() => setIsOpen(true)}
+        aria-label="Chat öffnen"
         className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-forest text-cream rounded-full shadow-2xl flex items-center justify-center hover:bg-bronze transition-colors duration-300"
       >
         <MessageSquare className="w-6 h-6" />

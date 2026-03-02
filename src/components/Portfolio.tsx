@@ -9,7 +9,7 @@ const galleryData: GalleryItem[] = [
     title: 'Naturnaher Wasserlauf',
     subtitle: 'Wannsee',
     photo: {
-      url: '/Portfolio_1.png',
+      url: '/Portfolio_1.webp',
       text: 'Naturnaher Wasserlauf in Wannsee',
       pos: 'center',
     },
@@ -18,7 +18,7 @@ const galleryData: GalleryItem[] = [
     title: 'Villen-Garten',
     subtitle: 'Dahlem',
     photo: {
-      url: '/Portfolio_2.png',
+      url: '/Portfolio_2.webp',
       text: 'Villen-Garten in Dahlem',
       pos: 'center',
     },
@@ -27,7 +27,7 @@ const galleryData: GalleryItem[] = [
     title: 'Harmonische Anlage',
     subtitle: 'Zehlendorf',
     photo: {
-      url: '/Portfolio_3.png',
+      url: '/Portfolio_3.webp',
       text: 'Harmonische Anlage in Zehlendorf',
       pos: 'center',
     },
@@ -36,7 +36,7 @@ const galleryData: GalleryItem[] = [
     title: 'Erlesene Kräuterspirale',
     subtitle: 'Grunewald',
     photo: {
-      url: '/Portfolio_4.png',
+      url: '/Portfolio_4.webp',
       text: 'Erlesene Kräuterspirale in Grunewald',
       pos: 'center',
     },
@@ -45,7 +45,7 @@ const galleryData: GalleryItem[] = [
     title: 'Mediterraner Terrassentraum',
     subtitle: 'Mitte',
     photo: {
-      url: '/Portfolio_5.png',
+      url: '/Portfolio_5.webp',
       text: 'Mediterraner Terrassentraum in Mitte',
       pos: 'center',
     },
@@ -77,7 +77,7 @@ export default function Portfolio() {
       </motion.div>
 
       <div className="hidden md:block text-center pb-16 pt-4">
-        <p className="text-forest/50 font-sans text-sm">Ziehen zum Drehen</p>
+        <p className="text-forest/70 font-sans text-sm">Ziehen zum Drehen</p>
       </div>
 
       {/* Mobile: Horizontal Scroll Gallery */}
@@ -97,6 +97,7 @@ export default function Portfolio() {
                   src={item.photo.url}
                   alt={item.photo.text}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-forest/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
@@ -107,7 +108,7 @@ export default function Portfolio() {
             </motion.div>
           ))}
         </div>
-        <p className="text-center text-forest/50 font-sans text-sm mt-2">Wischen zum Entdecken</p>
+        <p className="text-center text-forest/70 font-sans text-sm mt-2">Wischen zum Entdecken</p>
       </div>
 
       {/* Link to full portfolio page */}

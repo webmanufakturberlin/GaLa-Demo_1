@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useAnimation } from 'motion/react';
+import { useRef, useEffect } from 'react';
 import { ShinyButton } from './ui/shiny-button';
 
 export default function Hero() {
@@ -11,6 +11,20 @@ export default function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+
+  // Wait for PageLoader to finish (1500ms loading + 800ms exit = ~2300ms)
+  const titleControls = useAnimation();
+  const subtitleControls = useAnimation();
+  const buttonControls = useAnimation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      titleControls.start({ opacity: 1, x: 0, transition: { duration: 1.8, ease: [0.25, 0.46, 0.45, 0.94] } });
+      subtitleControls.start({ opacity: 1, x: 0, transition: { duration: 1.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } });
+      buttonControls.start({ opacity: 1, y: 0, transition: { duration: 1.2, delay: 1.0, ease: [0.25, 0.46, 0.45, 0.94] } });
+    }, 2400);
+    return () => clearTimeout(timer);
+  }, [titleControls, subtitleControls, buttonControls]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -32,38 +46,27 @@ export default function Hero() {
         style={{ opacity: textOpacity, y: textY }}
         className="relative z-10 text-center px-4 section-container mt-20"
       >
-        <h1 className="text-6xl md:text-7xl lg:text-[7rem] font-serif text-cream leading-tight mb-6 drop-shadow-lg">
+        <h1 className="text-6xl md:text-7xl lg:text-[7rem] font-serif leading-tight mb-6 drop-shadow-lg" style={{ color: '#F0E6D3' }}>
           <motion.span
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, x: '-30vw' }}
+            animate={titleControls}
             className="block"
           >
-            Gärten, die Geschichten erzählen.
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.4, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="block italic text-sand font-light"
-          >
-            Ihr privates Refugium in Berlin.
+            Großstadt aus. Garten an.
           </motion.span>
         </h1>
-
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-lg md:text-xl font-sans text-cream/90 uppercase tracking-widest mb-10"
+          initial={{ opacity: 0, x: '30vw' }}
+          animate={subtitleControls}
+          className="text-3xl md:text-4xl lg:text-5xl font-serif italic font-light mb-10 drop-shadow-lg"
+          style={{ color: '#E8DFD0' }}
         >
-          Meisterhafter Landschaftsbau trifft auf zeitloses Design.
+          Wir erschaffen Ihren privaten Rückzugsort mit Charakter und Stil.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={buttonControls}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <ShinyButton onClick={() => scrollTo('contact')}>

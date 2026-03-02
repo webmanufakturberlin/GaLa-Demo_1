@@ -1,5 +1,7 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import SectionHeading from './ui/SectionHeading';
+import { ShinyButton } from './ui/shiny-button';
 import { CircularGallery, type GalleryItem } from './ui/circular-gallery';
 
 const galleryData: GalleryItem[] = [
@@ -51,6 +53,8 @@ const galleryData: GalleryItem[] = [
 ];
 
 export default function Portfolio() {
+  const navigate = useNavigate();
+
   return (
     <section id="portfolio" className="relative z-10 overflow-hidden bg-forest/5">
       <div className="section-container pt-32 pb-8">
@@ -104,6 +108,13 @@ export default function Portfolio() {
           ))}
         </div>
         <p className="text-center text-forest/50 font-sans text-sm mt-2">Wischen zum Entdecken</p>
+      </div>
+
+      {/* Link to full portfolio page */}
+      <div className="text-center pb-12 md:pb-16">
+        <ShinyButton onClick={() => navigate('/portfolio')}>
+          Mehr entdecken
+        </ShinyButton>
       </div>
     </section>
   );

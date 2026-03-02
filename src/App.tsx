@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ValueProposition from './components/ValueProposition';
@@ -11,15 +13,29 @@ import Footer from './components/Footer';
 import { BackgroundEffects } from './components/BackgroundEffects';
 import PageLoader from './components/PageLoader';
 import SectionDivider from './components/ui/SectionDivider';
+import PortfolioPage from './components/PortfolioPage';
 
-export default function App() {
+function ScrollToHash() {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [hash]);
+  return null;
+}
+
+function HomePage() {
   return (
     <div className="relative min-h-screen">
       <PageLoader />
       <BackgroundEffects />
       <Navbar />
       <Hero />
-      <SectionDivider color="#F9F7F2" />
+      <SectionDivider color="#F9F7F2" className="-mt-[50px] md:-mt-[70px]" />
       <ValueProposition />
       <SectionDivider color="#F9F7F2" />
       <Leistungen />
@@ -35,5 +51,17 @@ export default function App() {
       <Footer />
       <Chatbot />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <ScrollToHash />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+      </Routes>
+    </>
   );
 }

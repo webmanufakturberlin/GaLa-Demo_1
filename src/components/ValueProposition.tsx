@@ -5,7 +5,10 @@ import SectionHeading from './ui/SectionHeading';
 import CountUp from './ui/CountUp';
 
 function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia(`(max-width: ${breakpoint - 1}px)`).matches;
+  });
   useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
     setIsMobile(mql.matches);
@@ -143,7 +146,7 @@ function GlowCard({
   const [isHovered, setIsHovered] = useState(false);
   const iconControls = useAnimation();
   const desktopEntrance = entranceVariants[index] || entranceVariants[0];
-  const mobileEntrance = { initial: { opacity: 0, y: 40 }, whileInView: { opacity: 1, y: 0 } };
+  const mobileEntrance = { initial: { opacity: 0, y: 40, rotate: 0, scale: 1 }, whileInView: { opacity: 1, y: 0, rotate: 0, scale: 1 } };
   const entrance = isMobile ? mobileEntrance : desktopEntrance;
 
   const Icon = box.icon;

@@ -5,10 +5,11 @@ interface SectionDividerProps {
 }
 
 export default function SectionDivider({ color = '#F9F7F2', flip = false, className = '' }: SectionDividerProps) {
+  const hasMarginTop = className.includes('-mt-') || className.includes('mt-');
   return (
     <div
       className={`relative w-full overflow-hidden leading-[0] z-10 ${className}`}
-      style={{ marginTop: flip ? 0 : -1, marginBottom: flip ? -1 : 0 }}
+      style={{ marginTop: flip ? 0 : (hasMarginTop ? undefined : -1), marginBottom: flip ? -1 : 0 }}
     >
       <svg
         viewBox="0 0 1440 80"

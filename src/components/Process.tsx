@@ -139,7 +139,7 @@ export default function Process() {
 
   return (
     <section ref={sectionRef} id="process" className="relative z-10 min-h-[280vh] lg:min-h-[250vh]">
-      <div className="sticky top-0 py-32 px-6 md:px-12 lg:px-24 min-h-screen flex flex-col justify-center">
+      <div className="sticky top-0 py-12 md:py-32 px-6 md:px-12 lg:px-24 min-h-screen flex flex-col justify-center">
         <div className="max-w-[1400px] mx-auto w-full">
           <SectionHeading title="Der Weg zu deiner Gartenoase" subtitle="Von der Vision zur Wirklichkeit" />
 
@@ -191,7 +191,7 @@ export default function Process() {
           </div>
 
           {/* Mobile: Vertical timeline */}
-          <div className="lg:hidden relative mt-12">
+          <div className="lg:hidden relative mt-4">
             {/* Vertical line */}
             <div className="absolute left-6 top-0 bottom-0 w-[2px] bg-forest/10">
               <motion.div
@@ -202,7 +202,7 @@ export default function Process() {
               />
             </div>
 
-            <div className="space-y-8 pl-16">
+            <div className="space-y-3 pl-16">
               {steps.map((step, i) => {
                 const Icon = step.icon;
                 const isActive = i === activeStep;
@@ -232,7 +232,7 @@ export default function Process() {
                         : 'bg-cream shadow-md'
                     }`}>
                       {/* Image */}
-                      <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'h-40' : 'h-0'}`}>
+                      <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'h-28' : 'h-0'}`}>
                         <img
                           src={step.img}
                           alt={step.title}
@@ -241,16 +241,18 @@ export default function Process() {
                         />
                       </div>
 
-                      <div className="p-5">
+                      <div className="p-4">
                         <div className="flex items-center gap-3 mb-2">
                           <Icon className={`w-5 h-5 ${isActive ? 'text-bronze' : 'text-forest/40'}`} strokeWidth={1.5} />
                           <h3 className={`text-lg font-serif font-semibold ${isActive ? 'text-cream' : 'text-forest'}`}>
                             {step.title}
                           </h3>
                         </div>
-                        <p className={`font-sans text-sm leading-relaxed ${isActive ? 'text-cream/80' : 'text-forest/60'}`}>
-                          {step.desc}
-                        </p>
+                        {isActive && (
+                          <p className="font-sans text-sm leading-relaxed text-cream/80">
+                            {step.desc}
+                          </p>
+                        )}
                         {isActive && (
                           <motion.p
                             initial={{ opacity: 0, height: 0 }}

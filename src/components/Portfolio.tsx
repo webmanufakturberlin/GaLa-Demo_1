@@ -50,6 +50,33 @@ const galleryData: GalleryItem[] = [
       pos: 'center',
     },
   },
+  {
+    title: 'Elegante Terrassenanlage',
+    subtitle: 'Grunewald',
+    photo: {
+      url: '/Portfolio_6.webp',
+      text: 'Elegante Terrassenanlage in Grunewald',
+      pos: 'center',
+    },
+  },
+  {
+    title: 'Natursteinmauer & Beete',
+    subtitle: 'Dahlem',
+    photo: {
+      url: '/Portfolio_7.webp',
+      text: 'Natursteinmauer und Beete in Dahlem',
+      pos: 'center',
+    },
+  },
+  {
+    title: 'Moderne Gartenoase',
+    subtitle: 'Potsdam',
+    photo: {
+      url: '/Portfolio_8.webp',
+      text: 'Moderne Gartenoase in Potsdam',
+      pos: 'center',
+    },
+  },
 ];
 
 export default function Portfolio() {

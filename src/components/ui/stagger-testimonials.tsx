@@ -49,6 +49,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
         `,
         boxShadow: isCenter ? "0px 8px 0px 4px rgba(146,108,68,0.3)" : "0px 0px 0px 0px transparent",
+        willChange: "transform",
       }}
     >
       <span
@@ -113,13 +114,13 @@ export const StaggerTestimonials: React.FC<StaggerTestimonialsProps> = ({ testim
       for (let i = steps; i > 0; i--) {
         const item = newList.shift();
         if (!item) return;
-        newList.push({ ...item, tempId: Math.random() });
+        newList.push({ ...item });
       }
     } else {
       for (let i = steps; i < 0; i++) {
         const item = newList.pop();
         if (!item) return;
-        newList.unshift({ ...item, tempId: Math.random() });
+        newList.unshift({ ...item });
       }
     }
     setTestimonialsList(newList);

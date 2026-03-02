@@ -153,7 +153,7 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
           width: var(--size);
           height: var(--size);
           box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
-          opacity: 0;
+          opacity: 0.45;
           transition: opacity var(--transition);
           animation: calc(var(--duration) * 1.5) breathe linear infinite;
         }

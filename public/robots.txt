@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://berlin-premium-landscaping.de/sitemap.xml

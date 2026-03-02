@@ -128,7 +128,7 @@ export default function LeistungenPage() {
       <section className="py-16 md:py-24 px-6 md:px-12">
         <div className="max-w-4xl mx-auto">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/#leistungen')}
             className="flex items-center gap-2 text-forest/60 hover:text-forest mb-10 font-sans text-sm transition-colors duration-300"
           >
             <ArrowLeft className="w-4 h-4" />

@@ -67,7 +67,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={buttonControls}
-          className="flex flex-col sm:flex-row gap-4 justify-center lg:mt-8"
+          className="flex flex-col sm:flex-row gap-4 justify-center lg:mt-20"
         >
           <ShinyButton onClick={() => scrollTo('contact')}>
             Beratung anfragen

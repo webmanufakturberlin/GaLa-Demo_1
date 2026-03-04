@@ -12,43 +12,12 @@ interface ShinyButtonProps {
 export function ShinyButton({ children, onClick, className = "" }: ShinyButtonProps) {
   return (
     <>
-      <style jsx>{`
-        @import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,500&display=swap");
-
-        @property --gradient-angle {
-          syntax: "<angle>";
-          initial-value: 0deg;
-          inherits: false;
-        }
-
-        @property --gradient-angle-offset {
-          syntax: "<angle>";
-          initial-value: 0deg;
-          inherits: false;
-        }
-
-        @property --gradient-percent {
-          syntax: "<percentage>";
-          initial-value: 5%;
-          inherits: false;
-        }
-
-        @property --gradient-shine {
-          syntax: "<color>";
-          initial-value: white;
-          inherits: false;
-        }
-
+      <style>{`
         .shiny-cta {
           --shiny-cta-bg: #1B3022;
           --shiny-cta-bg-subtle: #2a4432;
           --shiny-cta-fg: #F9F7F2;
           --shiny-cta-highlight: #926C44;
-          --shiny-cta-highlight-subtle: #b8905e;
-          --animation: gradient-angle linear infinite;
-          --duration: 3s;
-          --shadow-size: 2px;
-          --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
 
           isolation: isolate;
           position: relative;
@@ -62,146 +31,115 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          border: 1px solid transparent;
+          border: 1px solid var(--shiny-cta-bg-subtle);
           border-radius: 360px;
           color: var(--shiny-cta-fg);
-          background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
-            conic-gradient(
-              from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-              transparent,
-              var(--shiny-cta-highlight) var(--gradient-percent),
-              var(--gradient-shine) calc(var(--gradient-percent) * 2),
-              var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-              transparent calc(var(--gradient-percent) * 4)
-            ) border-box;
+          background: var(--shiny-cta-bg);
           box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-          transition: var(--transition);
-          transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
-        }
-
-        .shiny-cta::before,
-        .shiny-cta::after,
-        .shiny-cta span::before {
-          content: "";
-          pointer-events: none;
-          position: absolute;
-          inset-inline-start: 50%;
-          inset-block-start: 50%;
-          translate: -50% -50%;
-          z-index: -1;
+          transition: box-shadow 0.3s ease, border-color 0.3s ease;
+          animation: cta-pulse-glow 3s ease-in-out infinite;
+          /* GPU promotion — fixes Opera rendering */
+          transform: translateZ(0);
+          -webkit-transform: translateZ(0);
         }
 
         .shiny-cta:active {
-          translate: 0 1px;
-        }
-
-        .shiny-cta {
-          animation: cta-pulse-glow 3s ease-in-out infinite;
+          transform: translateY(1px) translateZ(0);
         }
 
         @keyframes cta-pulse-glow {
-          0%, 100% { box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 0 0 rgba(146, 108, 68, 0); }
-          50% { box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 20px 2px rgba(146, 108, 68, 0.25); }
+          0%, 100% {
+            box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 0 0 rgba(146, 108, 68, 0);
+          }
+          50% {
+            box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 0 20px 4px rgba(146, 108, 68, 0.3);
+          }
         }
 
-        /* Dots pattern */
-        .shiny-cta::before {
-          --size: calc(100% - var(--shadow-size) * 3);
-          --position: 2px;
-          --space: calc(var(--position) * 2);
-          width: var(--size);
-          height: var(--size);
-          background: radial-gradient(
-            circle at var(--position) var(--position),
-            white calc(var(--position) / 4),
-            transparent 0
-          ) padding-box;
-          background-size: var(--space) var(--space);
-          background-repeat: space;
-          mask-image: conic-gradient(
-            from calc(var(--gradient-angle) + 45deg),
-            black,
-            transparent 10% 90%,
-            black
+        /* === SHIMMER RING (conic gradient, GPU-rotated) === */
+        .shiny-cta .shimmer-ring {
+          position: absolute;
+          /* Center and size the ring so it covers the button */
+          top: 50%;
+          left: 50%;
+          width: 300%;
+          height: 300%;
+          transform: translate(-50%, -50%) rotate(0deg);
+          transform-origin: center center;
+          pointer-events: none;
+          z-index: 0;
+          border-radius: 50%;
+          background: conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            rgba(146, 108, 68, 0.25) 40deg,
+            rgba(255, 255, 255, 0.18) 80deg,
+            rgba(146, 108, 68, 0.25) 120deg,
+            transparent 160deg,
+            rgba(146, 108, 68, 0.12) 200deg,
+            rgba(255, 255, 255, 0.08) 240deg,
+            rgba(146, 108, 68, 0.12) 280deg,
+            transparent 320deg,
+            transparent 360deg
           );
-          border-radius: inherit;
-          opacity: 0.4;
-          z-index: -1;
+          animation: shimmer-ring-rotate 3s linear infinite;
+          /* Pure transform animation — GPU only, works in all browsers */
+          will-change: transform;
         }
 
-        /* Inner shimmer */
-        .shiny-cta::after {
-          --animation: shimmer linear infinite;
-          width: 100%;
-          aspect-ratio: 1;
+        @keyframes shimmer-ring-rotate {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to   { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* === SWEEP HIGHLIGHT (transform-based, no layout repaints) === */
+        .shiny-cta .shimmer-sweep {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          border-radius: inherit;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .shiny-cta .shimmer-sweep::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          /* Start fully off-screen left using transform, not left property */
+          left: 0;
+          width: 55%;
+          height: 100%;
           background: linear-gradient(
-            -50deg,
+            90deg,
             transparent,
-            var(--shiny-cta-highlight),
+            rgba(146, 108, 68, 0.18),
+            rgba(255, 255, 255, 0.12),
             transparent
           );
-          mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-          opacity: 0.6;
+          transform: translateX(-160%);
+          animation: shimmer-sweep-move 4s ease-in-out infinite;
+          will-change: transform;
         }
 
-        .shiny-cta span {
+        @keyframes shimmer-sweep-move {
+          0%   { transform: translateX(-160%); }
+          50%  { transform: translateX(280%); }
+          100% { transform: translateX(280%); }
+        }
+
+        .shiny-cta > .cta-text {
+          position: relative;
           z-index: 1;
         }
 
-        .shiny-cta span::before {
-          --size: calc(100% + 1rem);
-          width: var(--size);
-          height: var(--size);
-          box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
-          opacity: 0.45;
-          transition: opacity var(--transition);
-          animation: calc(var(--duration) * 1.5) breathe linear infinite;
+        .shiny-cta:hover {
+          border-color: var(--shiny-cta-highlight);
+          box-shadow: inset 0 0 0 1px var(--shiny-cta-highlight), 0 0 28px 5px rgba(146, 108, 68, 0.35);
         }
 
-        /* Animate */
-        .shiny-cta,
-        .shiny-cta::before,
-        .shiny-cta::after {
-          animation: var(--animation) var(--duration),
-            var(--animation) calc(var(--duration) / 0.4) reverse paused;
-          animation-composition: add;
-        }
-
-        .shiny-cta:is(:hover, :focus-visible) {
-          --gradient-percent: 20%;
-          --gradient-angle-offset: 95deg;
-          --gradient-shine: var(--shiny-cta-highlight-subtle);
-        }
-
-        .shiny-cta:is(:hover, :focus-visible),
-        .shiny-cta:is(:hover, :focus-visible)::before,
-        .shiny-cta:is(:hover, :focus-visible)::after {
-          animation-play-state: running;
-        }
-
-        .shiny-cta:is(:hover, :focus-visible) span::before {
-          opacity: 1;
-        }
-
-        @keyframes gradient-angle {
-          to {
-            --gradient-angle: 360deg;
-          }
-        }
-
-        @keyframes shimmer {
-          to {
-            rotate: 360deg;
-          }
-        }
-
-        @keyframes breathe {
-          from, to {
-            scale: 1;
-          }
-          50% {
-            scale: 1.2;
-          }
+        .shiny-cta:hover .shimmer-ring {
+          animation-duration: 1.5s;
         }
       `}</style>
 
@@ -212,7 +150,11 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
         whileTap={{ scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 400, damping: 15 }}
       >
-        <span>{children}</span>
+        {/* Shimmer ring — centered conic gradient rotating via transform */}
+        <span className="shimmer-ring" aria-hidden="true" />
+        {/* Sweep highlight — moves via translateX, not left */}
+        <span className="shimmer-sweep" aria-hidden="true" />
+        <span className="cta-text">{children}</span>
       </motion.button>
     </>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, HTMLAttributes } from 'react';
+import React, { useEffect, useRef, HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface GalleryItem {
@@ -19,69 +19,91 @@ interface CircularGalleryProps extends HTMLAttributes<HTMLDivElement> {
 
 const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
   ({ items, className, radius = 600, autoRotateSpeed = 0.02, ...props }, ref) => {
-    const [rotation, setRotation] = useState(0);
-    const [isInteracting, setIsInteracting] = useState(false);
-    const interactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const animationFrameRef = useRef<number | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const rotationRef = useRef(0);
+    const isDraggingRef = useRef(false);
     const lastMouseXRef = useRef<number | null>(null);
+    const animationFrameRef = useRef<number | null>(null);
+    const plateRef = useRef<HTMLDivElement | null>(null);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const pausedRef = useRef(false);
+    const interactionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    // Mouse/touch drag rotation
+    const anglePerItem = 360 / items.length;
+
+    // Direct DOM update — no React state, no re-renders
+    const updateDOM = () => {
+      const plate = plateRef.current;
+      if (!plate) return;
+
+      plate.style.transform = `rotateY(${rotationRef.current}deg)`;
+
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return;
+        const itemAngle = i * anglePerItem;
+        const totalRotation = rotationRef.current % 360;
+        const relativeAngle = (itemAngle + totalRotation + 360) % 360;
+        const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
+        const opacity = Math.max(0.25, 1 - normalizedAngle / 180);
+        card.style.opacity = String(opacity);
+      });
+    };
+
+    // rAF loop — updates DOM directly, no setState
+    useEffect(() => {
+      const loop = () => {
+        if (!pausedRef.current) {
+          rotationRef.current += autoRotateSpeed;
+        }
+        updateDOM();
+        animationFrameRef.current = requestAnimationFrame(loop);
+      };
+      animationFrameRef.current = requestAnimationFrame(loop);
+      return () => {
+        if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [autoRotateSpeed, anglePerItem]);
+
+    // Drag interaction
     useEffect(() => {
       const container = containerRef.current;
       if (!container) return;
 
-      const handlePointerDown = (e: PointerEvent) => {
-        setIsInteracting(true);
+      const onPointerDown = (e: PointerEvent) => {
+        isDraggingRef.current = true;
         lastMouseXRef.current = e.clientX;
-        if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+        pausedRef.current = true;
+        if (interactionTimerRef.current) clearTimeout(interactionTimerRef.current);
+        container.setPointerCapture(e.pointerId);
       };
 
-      const handlePointerMove = (e: PointerEvent) => {
-        if (lastMouseXRef.current === null) return;
+      const onPointerMove = (e: PointerEvent) => {
+        if (!isDraggingRef.current || lastMouseXRef.current === null) return;
         const delta = e.clientX - lastMouseXRef.current;
         lastMouseXRef.current = e.clientX;
-        setRotation(prev => prev + delta * 0.3);
+        rotationRef.current += delta * 0.3;
       };
 
-      const handlePointerUp = () => {
+      const onPointerUp = () => {
+        isDraggingRef.current = false;
         lastMouseXRef.current = null;
-        interactionTimeoutRef.current = setTimeout(() => {
-          setIsInteracting(false);
-        }, 500);
+        interactionTimerRef.current = setTimeout(() => {
+          pausedRef.current = false;
+        }, 800);
       };
 
-      container.addEventListener('pointerdown', handlePointerDown);
-      window.addEventListener('pointermove', handlePointerMove);
-      window.addEventListener('pointerup', handlePointerUp);
+      container.addEventListener('pointerdown', onPointerDown);
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
 
       return () => {
-        container.removeEventListener('pointerdown', handlePointerDown);
-        window.removeEventListener('pointermove', handlePointerMove);
-        window.removeEventListener('pointerup', handlePointerUp);
-        if (interactionTimeoutRef.current) clearTimeout(interactionTimeoutRef.current);
+        container.removeEventListener('pointerdown', onPointerDown);
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerUp);
+        if (interactionTimerRef.current) clearTimeout(interactionTimerRef.current);
       };
     }, []);
-
-    // Auto-rotation when not interacting
-    useEffect(() => {
-      const autoRotate = () => {
-        if (!isInteracting) {
-          setRotation(prev => prev + autoRotateSpeed);
-        }
-        animationFrameRef.current = requestAnimationFrame(autoRotate);
-      };
-
-      animationFrameRef.current = requestAnimationFrame(autoRotate);
-
-      return () => {
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
-        }
-      };
-    }, [isInteracting, autoRotateSpeed]);
-
-    const anglePerItem = 360 / items.length;
 
     return (
       <div
@@ -92,38 +114,41 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
         }}
         role="region"
         aria-label="3D Galerie"
-        className={cn("relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing select-none", className)}
+        className={cn(
+          'relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing select-none',
+          className
+        )}
         style={{ perspective: '2000px' }}
         {...props}
       >
         <div
+          ref={plateRef}
           className="relative w-full h-full"
           style={{
-            transform: `rotateY(${rotation}deg)`,
             transformStyle: 'preserve-3d',
+            willChange: 'transform',
+            transform: 'rotateY(0deg)',
           }}
         >
           {items.map((item, i) => {
             const itemAngle = i * anglePerItem;
-            const totalRotation = rotation % 360;
-            const relativeAngle = (itemAngle + totalRotation + 360) % 360;
-            const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
-            const opacity = Math.max(0.3, 1 - (normalizedAngle / 180));
-
             return (
               <div
                 key={item.photo.url}
+                ref={(el) => { cardRefs.current[i] = el; }}
                 role="group"
                 aria-label={item.title}
                 className="absolute w-[280px] h-[370px] sm:w-[300px] sm:h-[400px]"
                 style={{
-                  transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
+                  transform: `rotateY(${itemAngle}deg) translateZ(${radius}px) translateZ(0)`,
                   left: '50%',
-                  top: '50%',
+                  top: '45%',
                   marginLeft: '-140px',
-                  marginTop: '-185px',
-                  opacity: opacity,
-                  transition: 'opacity 0.3s linear',
+                  marginTop: '-200px',
+                  opacity: 1,
+                  willChange: 'opacity',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
                 }}
               >
                 <div className="relative w-full h-full rounded-2xl shadow-2xl overflow-hidden group border border-bronze/20 bg-cream/70 backdrop-blur-lg">

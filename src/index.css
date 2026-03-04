@@ -34,12 +34,14 @@ html {
   html {
     scroll-behavior: auto;
   }
-  *, *::before, *::after {
+  /* Only reduce layout-affecting animations, not GPU transform-based ones */
+  *:not(.shiny-cta):not(.shiny-cta *):not(.shimmer-ring):not(.shimmer-sweep):not([style*="rotateY"]) {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
+
 
 body {
   background-color: var(--color-cream);

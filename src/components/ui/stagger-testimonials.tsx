@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,27 +30,39 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
   const isCenter = position === 0;
 
+  // Compute target transform values as individual numbers
+  // Using Framer Motion's animate prop for correct cross-browser interpolation
+  const targetX = (cardSize / 1.5) * position;
+  const targetY = isCenter ? -65 : position % 2 ? 15 : -15;
+  const targetRotate = isCenter ? 0 : position % 2 ? 2.5 : -2.5;
+
   return (
-    <div
+    <motion.div
       onClick={() => handleMove(position)}
       className={cn(
-        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-8 transition-all duration-500 ease-in-out",
+        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-8",
         isCenter
           ? "z-10 bg-forest text-cream border-forest"
           : "z-0 bg-cream text-forest border-bronze/20 hover:border-bronze/50"
       )}
+      // Use Framer Motion for position animation — cross-browser correct
+      animate={{
+        x: `calc(-50% + ${targetX}px)`,
+        y: `calc(-50% + ${targetY}px)`,
+        rotate: targetRotate,
+        scale: isCenter ? 1.0 : 0.97,
+      }}
+      transition={{
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
       style={{
         width: cardSize,
         height: cardSize,
         clipPath: `polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)`,
-        transform: `
-          translate(-50%, -50%)
-          translateX(${(cardSize / 1.5) * position}px)
-          translateY(${isCenter ? -65 : position % 2 ? 15 : -15}px)
-          rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
-        `,
         boxShadow: isCenter ? "0px 8px 0px 4px rgba(146,108,68,0.3)" : "0px 0px 0px 0px transparent",
-        willChange: "transform",
+        willChange: 'transform',
+        // Remove the old transform from style — let Framer handle it
       }}
     >
       <span
@@ -70,7 +83,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             className={cn(
               "w-4 h-4",
               i < testimonial.rating
-                ? isCenter ? "fill-bronze text-bronze" : "fill-bronze text-bronze"
+                ? "fill-bronze text-bronze"
                 : "fill-none text-bronze/20"
             )}
           />
@@ -95,7 +108,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           {testimonial.location}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -160,7 +173,7 @@ export const StaggerTestimonials: React.FC<StaggerTestimonialsProps> = ({ testim
         <button
           onClick={() => handleMove(-1)}
           className={cn(
-            "flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300",
+            "flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300",
             "bg-cream border-2 border-bronze/30 text-forest hover:bg-bronze hover:text-cream hover:border-bronze",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2"
           )}
@@ -171,7 +184,7 @@ export const StaggerTestimonials: React.FC<StaggerTestimonialsProps> = ({ testim
         <button
           onClick={() => handleMove(1)}
           className={cn(
-            "flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300",
+            "flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300",
             "bg-cream border-2 border-bronze/30 text-forest hover:bg-bronze hover:text-cream hover:border-bronze",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2"
           )}
